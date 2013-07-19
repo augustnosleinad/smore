@@ -5,77 +5,46 @@
 		<h2>Work hard. Work smart. Work Smore.</hr>
 	<h3>Get to it! Start the timer, work on your project, and earn your sweet rewards!</h3>
 	</div>
-	<div class="spacer"></div>
-	<div class="clock-elements">
-		<div id="tick-hours">00</div>
-		<div id="tick-minutes">00</div>
-		<div id="tick-seconds">00</div>
-	</div>
-
-	<div class="buttons">
-		<a href="javascript: start();">Start up this mofo!</a>
-		<a href="javascript: pause();">Hold it right there (momentarily)!</a>
-		<a href="javascript: stop();">Check yourself before you wreck yourself!</a>
+	
+	<div class="moment">
+		<div id="start-time" onClick="start()">Start</div>
+		<div id="stop-time" onClick="stop()">Stop</div>
+		<div id="time-spent" onClick="timeSpent()">Total</div>
 	</div>
 	
-<script>
+	<script>
 
-var h=00;var m=00;var s=00;  /* initial timer values */
-var mup, hup;  /* for incremeting minutes and hours */
-var running = false;  /* timer state status */
-var timer;
+	var now;
+	var startTime;
+	var stopTime;
+	var duration;
 
-function start(){
-	if (running == false){
-		timer = setInterval(ticking, 1000);
-		running = true;
+	function currentTime(){
+		now = moment();
+		return now;
 	}
-}
 
-function pause(){
-	clearInterval(timer); /* stop calls to ticking()*/
-	running = false;
-}
+	function start(){
+		startTime = currentTime();
+		document.getElementById('start-time').innerHTML= "Start time: " + startTime.format('HH:mm:ss');
+		return startTime;
+	}
 
-function stop(){
-	clearInterval(timer); /* stop calls to ticking() */
-	h=00; m=00; s=00;
-	document.getElementById('tick-hours').innerHTML=h;
-	document.getElementById('tick-minutes').innerHTML=m;
-	document.getElementById('tick-seconds').innerHTML=s;
-	running = false;
-}
+	function stop(){
+		stopTime = currentTime();
+		document.getElementById('stop-time').innerHTML= "Stop time: " + stopTime.format('HH:mm:ss');
+		return stopTime;
+	}
 
-function ticking()   /* called every second  */
-{
-	if(s<59){s=s+01;mup=false;hup=false;}
-	else if(s==59){s==00;mup=true;hup=false}
+	function timeSpent(){
+		duration= stopTime.diff(startTime,'minutes');
+		document.getElementById('time-spent').innerHTML= "Time spent on task: " + duration + " minutes";
+		return duration;
+	}
 
-	if(mup==true&&m<59){m=m+01;}
-	else if(mup==true&&m==59){m=00;hup=true;}
 
-	if(hup==true&&h<23){h=h+01;}
-	else if(hup==true&&h==23){h==00;}
+	</script>
 
-	document.getElementById('tick-hours').innerHTML=h;
-	document.getElementById('tick-minutes').innerHTML=m;
-	document.getElementById('tick-seconds').innerHTML=s;
-}
-
-</script>
-
-<style>
-
-.clock-elements div {
-	display: inline;
-}
-
-.buttons a {
-	text-decoration: none;
-	color: #8A2E00;
-}
-
-</style>
 	</div>
 
 {% endblock %}
