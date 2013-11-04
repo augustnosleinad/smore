@@ -10,27 +10,27 @@
 # 	c.execute("INSERT INTO timelog VALUES('6/27',150)")
 
 
-from flask import Flask, render_template
-from app import app
-from flask.ext.sqlalchemy import SQLAlchemy
+# from flask import Flask, render_template
+# from app import app
+# from flask.ext.sqlalchemy import SQLAlchemy
 
-# configuration
+# # configuration
 
-app = Flask(__name__)
-app.config.from_object('config')
-db = SQLAlchemy(app)
+# app = Flask(__name__)
+# app.config.from_object('config')
+# db = SQLAlchemy(app)
 
-from app import models
+# from app import models
 
 
-@app.route('/')
-def home():
-	return render_template('home.html')
+# @app.route('/')
+# def home():
+# 	return render_template('home.html')
 
-@app.route('/smoreStation')
-def smoreStation():
-	return render_template('smoreStation.html')
+# @app.route('/smoreStation')
+# def smoreStation():
+# 	return render_template('smoreStation.html')
 
-if __name__ == '__main__':
-	app.run(debug=True)
+# if __name__ == '__main__':
+# 	app.run(debug=True)
 

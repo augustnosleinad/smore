@@ -11,6 +11,16 @@
 		<div id="stop-time" onClick="stop()">Stop</div>
 		<div id="time-spent" onClick="timeSpent()">Total</div>
 	</div>
+
+
+	<br/>
+	<br/>
+	<h3>Tasks:</h3>
+	{% for t in tasks %}
+	<strong>Task:</strong> {{ t.task_name }} <br/>
+	<strong>Duration:</strong> {{ t.duration }} <br/>
+	<br/>
+	{% endfor %}
 	
 	<script>
 
