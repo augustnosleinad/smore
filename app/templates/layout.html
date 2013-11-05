@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Smore</title>
+		{% if title %}
+    	<title>{{title}} - Smore</title>
+    	{% else %}
+    	<title>Smore</title>
+    	{% endif %}
 		<strong><link rel ="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 		<script src="{{ url_for('static',filename='js/moment.js') }}"></script>
 	</head>
@@ -12,14 +16,30 @@
 				<h1 class="logo">Smore</h1>
 				<strong><nav>
 					<ul class="menu">
-						<li><a href="{{ url_for('home') }}">Home</a></li>
+						<li><a href="{{ url_for('login') }}">Login</a></li>
+						{% if g.user.is_authenticated() %}
+        				<li><a href="{{ url_for('logout') }}">Logout</a></li>
+        				{% endif %}
 						<li><a href="{{ url_for('smoreStation') }}">Smore Station</a></li>
 					</ul>
 				</nav></strong>
 			</div>
 		</header>
 
+		<div class="jumbo">
+		<h2>Work hard. Work smart. Work Smore.</hr>
+		</div>
+
 		<div class="container">
+			{% with messages = get_flashed_messages() %}
+   			{% if messages %}
+    		<ul>
+    		{% for message in messages %}
+        		<li>{{ message }} </li>
+    		{% endfor %}
+    		</ul>
+    		{% endif %}
+    		{% endwith %}
 			{% block content %}
 			{% endblock %}
 		</div>
