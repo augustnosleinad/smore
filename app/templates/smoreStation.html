@@ -1,23 +1,45 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<h1>Hi, {{g.user.nickname}}!</h1>
 
-	
 	<div class="moment">
 		<div id="start-time" onClick="start()">Start</div>
 		<div id="stop-time" onClick="stop()">Stop</div>
 		<div id="time-spent" onClick="timeSpent()">Total</div>
 	</div>
+	<form id="record-duration" action="" method= "post">
+		{{duration_form.hidden_tag()}}
+		<!-- the following input is where the duration value (from the time-spent function) is going -->
+		<input type="hidden" id="duration" name="duration" value="" />
+		<input type="submit" value="Save"/>
+	</form>
 
 
-	<br/>
-	<br/>
+
 	<h3>Tasks:</h3>
 	{% for t in tasks %}
 	<strong>Task:</strong> {{ t.task_name }} <br/>
 	<strong>Duration:</strong> {{ t.duration }} <br/>
 	<br/>
 	{% endfor %}
+	
+	<form action="" method= "post" name="task">
+		{{form.hidden_tag()}}
+			<table>
+					<tr>
+						<td>Add a new task: </td>
+						<td>{{ form.task(size=30, maxlength=140) }}</td>
+						<td>
+							<span style="color: red;">[{{error}}]</span><br>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Add!"></td>
+						<td></td>
+			</table>
+		</form>
 	
 	<script>
 
@@ -45,10 +67,11 @@
 
 	function timeSpent(){
 		duration= stopTime.diff(startTime,'minutes');
+		document.getElementById('duration').value = duration;
+		// document.getElementById('record-duration').submit();
 		document.getElementById('time-spent').innerHTML= "Time spent on task: " + duration + " minutes";
 		return duration;
 	}
-
 
 	</script>
 

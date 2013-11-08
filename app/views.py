@@ -1,10 +1,11 @@
 
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
-# from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 from app import app, db, models, lm, oid
-from forms import LoginForm
+from forms import LoginForm, NewTaskForm, TrackDurationForm
 from models import User, Task, ROLE_USER, ROLE_ADMIN
+from datetime import datetime
 
 
 @lm.user_loader
@@ -51,10 +52,47 @@ def after_login(resp):
     login_user(user, remember = remember_me)
     return redirect(request.args.get('next') or url_for('smoreStation'))
 
-@app.route('/smoreStation')
+@app.route('/smoreStation', methods = ['GET','POST'])
+@login_required
 def smoreStation():
-	tasks = models.Task.query.all()
-	return render_template('smoreStation.html', tasks=tasks)
+    
+    form = NewTaskForm()
+    if form.validate_on_submit():
+        task = Task(task_name = form.task.data, timestamp = datetime.utcnow(), duration = 0, user_id = g.user.id)
+        db.session.add(task)
+        db.session.commit()
+        flash('Task added!')
+        return redirect(url_for('smoreStation'))
+
+    duration_form = TrackDurationForm()
+    
+    if duration_form.validate_on_submit():
+        task = Task.query.get(1)
+        task.duration = task.duration + duration_form.duration.data
+        db.session.add(task)
+        db.session.commit()
+        flash('Database updated!')
+        return redirect(url_for('smoreStation'))
+
+    tasks = models.Task.query.all()
+    return render_template('smoreStation.html', user = user, form = form, duration_form = duration_form, tasks = tasks)
+
+
+@app.route('/user/<nickname>')
+@login_required
+def user(nickname):
+    user = User.query.filter_by(nickname = nickname).first()
+
+    # get the tasks associated with the user
+    #haven't tested yet   task_list = Task.query.filter_by(user_id = user)
+    if user == None:
+        flash('User ' + nickname + ' not found.')
+        return redirect(url_for('home'))
+    tasks = [
+        { 'user': user, 'tasks': user.tasks}
+    ]
+    return render_template('user.html', user = user, tasks = tasks)
+
 
 @app.route('/logout')
 def logout():

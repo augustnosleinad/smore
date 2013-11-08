@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<h1>User: {{user.nickname}}!</h1>
+<hr>
+{% for task in tasks %}
+<p>
+  {{task.user.nickname}} is working on: <b>{{task.task}}</b>
+</p>
+{% endfor %}
+{% endblock %}
