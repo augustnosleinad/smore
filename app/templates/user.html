@@ -2,11 +2,14 @@
 
 
 {% block content %}
-<h1>User: {{user.nickname}}!</h1>
+<h2>Tasks in progress for {{user.nickname}}</h2>
 <hr>
 {% for task in tasks %}
-<p>
-  {{task.user.nickname}} is working on: <b>{{task.task}}</b>
-</p>
+    <p>
+        <b>{{ task.task_name }}</b>
+    </p>
 {% endfor %}
+
+<div>{{ graph|safe }}</div>
+
 {% endblock %}

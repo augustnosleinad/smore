@@ -7,7 +7,7 @@
     	<title>Smore</title>
     	{% endif %}
 		<strong><link rel ="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-		<script src="{{ url_for('static',filename='js/moment.js') }}"></script>
+		<script src="{{url_for('static',filename='js/moment.js')}}"></script>
 	</head>
 
 	<body>
@@ -16,9 +16,9 @@
 				<h1 class="logo">Smore</h1>
 				<strong><nav>
 					<ul class="menu">
-						<li><a href="{{ url_for('login') }}">Login</a></li>
+						<li><a href="{{url_for('login')}}">Login</a></li>
 						{% if g.user.is_authenticated() %}
-        				<li><a href="{{ url_for('logout') }}">Logout</a></li>
+        				<li><a href="{{url_for('logout')}}">Logout</a></li>
         				{% endif %}
 					</ul>
 				</nav></strong>
@@ -39,6 +39,7 @@
     		</ul>
     		{% endif %}
     		{% endwith %}
+			
 			{% block content %}
 			{% endblock %}
 		</div>

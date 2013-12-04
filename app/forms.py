@@ -11,3 +11,4 @@ class NewTaskForm(Form):
 
 class TrackDurationForm(Form):
 	duration = IntegerField('duration', validators = [Required()])
+	active_task = TextField('active_task', validators = [Required()])
