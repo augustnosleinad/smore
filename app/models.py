@@ -28,9 +28,18 @@ class User(db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     task_name = db.Column(db.String(64))
-    timestamp = db.Column(db.DateTime)
-    duration = db.Column(db.Integer)
+    creation_date = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    work_sessions = db.relationship('Worklog', backref = 'task', lazy = 'dynamic')
 
     def __repr__(self):
-        return '<Task: %r, Duration: %r>' % (self.task_name, self.duration)
+        return '<Task: %r, Started on: %r, Belongs to: %r>' % (self.task_name, self.timestamp, self.user_id)
+
+class Worklog(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    task_id = db.Column(db.Integer, db.ForeignKey('task.id'))
+    timestamp = db.Column(db.DateTime)
+    duration = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Date: %r, Task: %r, Duration: %r>' % (self.timestamp, self.task_id, self.duration)

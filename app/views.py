@@ -5,7 +5,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.sqlalchemy import SQLAlchemy
 from app import app, db, models, lm, oid
 from forms import LoginForm, NewTaskForm, TrackDurationForm
-from models import User, Task, ROLE_USER, ROLE_ADMIN
+from models import User, Task, Worklog, ROLE_USER, ROLE_ADMIN
 from datetime import datetime
 
 
@@ -78,13 +78,15 @@ def smore_station():
 
     if duration_form.validate_on_submit():
         active_task = duration_form.active_task.data
-        task = Task.query.get(active_task)
-        task.duration += duration_form.duration.data
+        duration = duration_form.duration.data
+        worklog = Worklog(task_id = active_task, timestamp = datetime.utcnow(), duration = duration)
+        db.session.add(worklog)
         db.session.commit()
         flash('Database updated!')
         return redirect(url_for('smore_station'))
 
-    tasks = models.Task.query.all()
+    tasks = Task.query.all()
+    worklogs = Worklog.query.all()
     return render_template('smore_station.html', user = user, form = form, duration_form = duration_form, tasks=tasks)
 
 
