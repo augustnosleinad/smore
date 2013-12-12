@@ -49,7 +49,7 @@
 
 	{% for task in tasks %}
 		<strong>Task:</strong> {{task.task_name}} <br/>
-		<strong>Duration:</strong><br/>
+		<strong>Duration:</strong>{{worklogs[task]}}<br/>
 		<br/>
 	{% endfor %}
 	

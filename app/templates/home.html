@@ -1,10 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
 
-    <img src="{{url_for('static', filename='img/clock.jpg')}}"/>
-    <img src="{{url_for('static', filename='img/ascending_bar_graph.jpg')}}"/>
-    <img src="{{url_for('static', filename='img/smore.jpg')}}"/>
+<div class="jumbo">
+    <h2>Work hard. Work smart. Work Smore.</hr>
+</div>
+
+<div>
+    <div class="frontpage clearfix">
+        <img class = "grid_4 alpha" src="{{url_for('static', filename='img/clock.jpg')}}"/>
+        <div class = "grid_8 omega">
+            <p>Track the time you spend working on tasks and projects important to you.</p>
+        </div>
+    </div>
+    <div class="frontpage clearfix">
+        <div class = "grid_8 alpha">
+            <p>Keep working, and watch your tracked totals increase towards your target goal.</p>
+        </div>
+        <img class = "grid_4 omega" src="{{url_for('static', filename='img/ascending_bar_graph.jpg')}}"/>
+    </div>
+    <div class="frontpage clearfix">
+        <div class = "grid_12">
+            <p>Hit your target number of hours, or the predesigned project milestones that you have defined, and earn virtual smores as a sweet reward for your efforts.</p>
+        </div>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+        <img class = "grid_1" src="{{url_for('static', filename='img/smore.jpg')}}"/>
+    </div>
 
 </div>
 

@@ -86,8 +86,12 @@ def smore_station():
         return redirect(url_for('smore_station'))
 
     tasks = Task.query.all()
-    worklogs = Worklog.query.all()
-    return render_template('smore_station.html', user = user, form = form, duration_form = duration_form, tasks=tasks)
+    worklogs = {}
+    for task in tasks:
+        data = Worklog.query.filter_by(task_id = task.id).all()
+        worklogs[task] = data
+
+    return render_template('smore_station.html', user = user, form = form, duration_form = duration_form, tasks=tasks, worklogs=worklogs)
 
 
 @app.route('/user/<nickname>')

@@ -6,7 +6,9 @@
     	{% else %}
     	<title>Smore</title>
     	{% endif %}
-		<strong><link rel ="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel ="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+        <link rel ="stylesheet" href="{{ url_for('static', filename='css/grid.css') }}">
+		<link rel ="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 		<script src="{{url_for('static',filename='js/moment.js')}}"></script>
 	</head>
 
@@ -25,9 +27,6 @@
 			</div>
 		</header>
 
-		<div class="jumbo">
-		<h2>Work hard. Work smart. Work Smore.</hr>
-		</div>
 
 		<div class="container">
 			{% with messages = get_flashed_messages() %}
